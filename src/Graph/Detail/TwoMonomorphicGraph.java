@@ -1,9 +1,10 @@
 package Graph.Detail;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import Graph.Graph;
 import Tool.Helper;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TwoMonomorphicGraph {
     public Graph graph1;

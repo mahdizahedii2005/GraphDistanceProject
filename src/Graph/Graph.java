@@ -6,7 +6,6 @@ import Graph.Detail.Vertex;
 import Tool.CustomHashSet;
 import Tool.Helper;
 
-
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.util.*;
@@ -28,21 +27,6 @@ public class Graph implements Cloneable {
     public static Graph CreatGraph(int id) {
         Graph graph = new Graph(id);
         return GRAPHS.putIfAbsent(id, graph);
-    }
-
-    public ArrayList<Integer> getVertexId() {
-        return new ArrayList<>(vertexes.keySet());
-    }
-
-    public List<List<Integer>> getEdges() {
-        List<List<Integer>> result = new ArrayList<>();
-        for (Edge edge : edges.values()) {
-            List<Integer> arrayList = new ArrayList<>();
-            arrayList.add(edge.source.id);
-            arrayList.add(edge.destination.id);
-            result.add(arrayList);
-        }
-        return result;
     }
 
     //        double[][] difPointVertex = new double[monomorphicGraph.graph1.vertexes.size()][monomorphicGraph.graph1.vertexes.size()];
@@ -121,7 +105,7 @@ public class Graph implements Cloneable {
             if (graph2.edges.isEmpty()) return new CustomHashSet();
         }
         boolean ab = !cash.add(graph1.toSerialNumber() + graph2.toSerialNumber() + 'v');
-        boolean ba = graph2.toSerialNumber().equals(graph1.toSerialNumber()) ? false : !cash.add(graph2.toSerialNumber() + graph1.toSerialNumber() + 'v');
+        boolean ba = !graph2.toSerialNumber().equals(graph1.toSerialNumber()) && !cash.add(graph2.toSerialNumber() + graph1.toSerialNumber() + 'v');
         if (ab || ba) return new CustomHashSet();
         for (Vertex vertex : graph1.vertexes.values()) {
             if (vertex.getDeg() == 0) continue;
@@ -153,7 +137,7 @@ public class Graph implements Cloneable {
             if (graph2.edges.isEmpty()) return new CustomHashSet();
         }
         boolean ab = !cash.add(graph1.toSerialNumber() + graph2.toSerialNumber() + 'e');
-        boolean ba = graph2.toSerialNumber().equals(graph1.toSerialNumber()) ? false : !cash.add(graph2.toSerialNumber() + graph1.toSerialNumber() + 'e');
+        boolean ba = !graph2.toSerialNumber().equals(graph1.toSerialNumber()) && !cash.add(graph2.toSerialNumber() + graph1.toSerialNumber() + 'e');
         if (ab || ba) return new CustomHashSet();
         CustomHashSet result = new CustomHashSet();
         if (areThisTwoTheSame(graph1, graph2)) {
@@ -226,6 +210,21 @@ public class Graph implements Cloneable {
             }
         }
         return false;
+    }
+
+    public ArrayList<Integer> getVertexId() {
+        return new ArrayList<>(vertexes.keySet());
+    }
+
+    public List<List<Integer>> getEdges() {
+        List<List<Integer>> result = new ArrayList<>();
+        for (Edge edge : edges.values()) {
+            List<Integer> arrayList = new ArrayList<>();
+            arrayList.add(edge.source.id);
+            arrayList.add(edge.destination.id);
+            result.add(arrayList);
+        }
+        return result;
     }
 
     public double getPriceFromOriginal() {

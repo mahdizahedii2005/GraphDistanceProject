@@ -7,15 +7,23 @@ import java.util.List;
 import java.util.Map;
 
 public class GraphVisualizer extends JPanel {
-    private List<Integer> vertices;
-    private List<List<Integer>> edges;
-    private Map<Integer, Point> positions;
+    private final List<Integer> vertices;
+    private final List<List<Integer>> edges;
+    private final Map<Integer, Point> positions;
 
     public GraphVisualizer(List<Integer> vertices, List<List<Integer>> edges) {
         this.vertices = vertices;
         this.edges = edges;
         this.positions = new HashMap<>();
         calculatePositions();
+    }
+
+    public static void showGraph(List<Integer> vertices, List<List<Integer>> edges) {
+        JFrame frame = new JFrame("Graph.Graph Visualizer");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(600, 600);
+        frame.add(new GraphVisualizer(vertices, edges));
+        frame.setVisible(true);
     }
 
     private void calculatePositions() {
@@ -63,13 +71,5 @@ public class GraphVisualizer extends JPanel {
                 g2d.setColor(Color.BLUE);
             }
         }
-    }
-
-    public static void showGraph(List<Integer> vertices, List<List<Integer>> edges) {
-        JFrame frame = new JFrame("Graph.Graph Visualizer");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600, 600);
-        frame.add(new GraphVisualizer(vertices, edges));
-        frame.setVisible(true);
     }
 }

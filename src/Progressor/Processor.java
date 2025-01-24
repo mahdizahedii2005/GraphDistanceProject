@@ -1,6 +1,9 @@
 package Progressor;
+
 import Graph.Graph;
+
 import java.util.regex.Matcher;
+
 public class Processor implements IProcessor {
     @Override
     public String Progress(String query) {
